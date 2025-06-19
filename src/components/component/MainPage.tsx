@@ -33,21 +33,25 @@ const samplePrompts = [
     text: "Write a professional email to a client apologizing for a delay.",
     icon: "\uD83D\uDCE7",
     category: "Business",
+    title: "Professional Email",
   },
   {
     text: "Summarize this paragraph in 2 sentences.",
     icon: "\uD83D\uDCDD",
     category: "Writing",
+    title: "Summarization",
   },
   {
     text: "Rewrite this text to sound more friendly and casual.",
     icon: "\uD83D\uDE0A",
     category: "Tone",
+    title: "Tone Adjustment",
   },
   {
     text: "Give me 5 blog ideas on remote work productivity.",
     icon: "\uD83D\uDCA1",
     category: "Ideas",
+    title: "Blog Ideas",
   },
 ];
 
@@ -149,59 +153,9 @@ export default function MainPage() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-purple-50">
       <div className="max-w-6xl mx-auto px-4 py-8">
-        <div className="text-center mb-8">
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <div className="p-3 bg-gradient-to-r from-blue-500 to-purple-600 rounded-full">
-              <Brain className="w-8 h-8 text-white" />
-            </div>
-            <h1 className="text-4xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-              AI Assistant
-            </h1>
-          </div>
-          <p className="text-gray-600 text-lg">
-            Transform your ideas with the power of AI
-          </p>
-        </div>
-
         <div className="grid lg:grid-cols-3 gap-6">
           {/* Main Input Section */}
           <div className="lg:col-span-2 space-y-6">
-            {/* Sample Prompts */}
-            <Card className="border-0 shadow-lg bg-white/70 backdrop-blur-sm">
-              <CardHeader className="pb-4">
-                <CardTitle className="flex items-center gap-2 text-lg">
-                  <Sparkles className="w-5 h-5 text-yellow-500" />
-                  Quick Start Templates
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                <div className="grid sm:grid-cols-2 gap-3">
-                  {samplePrompts.map((sample, i) => (
-                    <button
-                      key={i}
-                      onClick={() => {
-                        setPrompt(sample.text);
-                        setTimeout(() => inputRef.current?.focus(), 50);
-                      }}
-                      className="group p-4 text-left border border-gray-200 rounded-lg hover:border-blue-300 hover:shadow-md transition-all duration-200 bg-white/50 hover:bg-white/80"
-                    >
-                      <div className="flex items-start gap-3">
-                        <span className="text-2xl">{sample.icon}</span>
-                        <div className="flex-1 min-w-0">
-                          <Badge variant="secondary" className="mb-2 text-xs">
-                            {sample.category}
-                          </Badge>
-                          <p className="text-sm text-gray-700 group-hover:text-gray-900 line-clamp-2">
-                            {sample.text}
-                          </p>
-                        </div>
-                      </div>
-                    </button>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-
             {/* Main Input */}
             <Card className="border-0 shadow-lg bg-white/70 backdrop-blur-sm">
               <CardHeader className="pb-4">
@@ -271,6 +225,31 @@ export default function MainPage() {
                       </>
                     )}
                   </Button>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Sample Prompts */}
+            <Card className="border-0 shadow-lg bg-white/70 backdrop-blur-sm">
+              <CardHeader className="pb-4">
+                <CardTitle className="flex items-center gap-2 text-lg">
+                  <Sparkles className="w-5 h-5 text-yellow-500" />
+                  Quick Start Templates
+                </CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex flex-wrap gap-2">
+                  {samplePrompts.map((sample, i) => (
+                    <button
+                      key={i}
+                      onClick={() => setPrompt(sample.text)}
+                      title={sample.title}
+                      className="flex items-center gap-2 px-3 py-1 text-sm rounded-full bg-blue-100 hover:bg-blue-200 text-blue-800 transition-all"
+                    >
+                      <span>{sample.icon}</span>
+                      <span className="font-medium">{sample.category}</span>
+                    </button>
+                  ))}
                 </div>
               </CardContent>
             </Card>

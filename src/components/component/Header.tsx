@@ -3,6 +3,7 @@
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { useUser } from "@/hooks/useUser";
+import Link from "next/link";
 
 export function Header() {
   const { user, supabase } = useUser();
@@ -19,7 +20,9 @@ export function Header() {
 
   return (
     <header className="flex items-center justify-between px-6 py-4 bg-blue-400 border-b shadow-sm">
-      <h1 className="text-xl font-bold">AI Assistant</h1>
+      <Link href="/">
+        <h1 className="text-xl font-bold">AI Assistant</h1>
+      </Link>
       <div className="flex items-center gap-4">
         {user && <span className="text-sm font-medium">{user.email}</span>}
         {user ? (
