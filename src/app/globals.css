@@ -120,3 +120,22 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* globals.css */
+@keyframes dots {
+  0% {
+    content: ".";
+  }
+  33% {
+    content: "..";
+  }
+  66% {
+    content: "...";
+  }
+}
+
+.animate-dots::after {
+  display: inline-block;
+  content: "";
+  animation: dots steps(3, end) 1.2s infinite;
+}
