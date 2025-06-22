@@ -7,6 +7,7 @@ export function MessageList({ chatId }: { chatId: string }) {
   const [messages, setMessages] = useState<any[]>([]);
   const bottomRef = useRef<HTMLDivElement>(null);
 
+  // Load messages initially
   useEffect(() => {
     const load = async () => {
       const { data, error } = await supabase
@@ -21,6 +22,7 @@ export function MessageList({ chatId }: { chatId: string }) {
     load();
   }, [chatId]);
 
+  // Realtime updates
   useEffect(() => {
     const channel = supabase
       .channel("messages-listener")
@@ -49,6 +51,11 @@ export function MessageList({ chatId }: { chatId: string }) {
       supabase.removeChannel(channel);
     };
   }, [chatId]);
+
+  // 👇 Scroll to latest message whenever messages update
+  useEffect(() => {
+    bottomRef.current?.scrollIntoView({ behavior: "smooth", block: "end" });
+  }, [messages]);
 
   return (
     <div className="flex flex-col gap-4 px-4 py-4 overflow-y-auto">
@@ -81,6 +88,7 @@ export function MessageList({ chatId }: { chatId: string }) {
           </div>
         );
       })}
+      {/* 🔽 Auto-scroll target */}
       <div ref={bottomRef} />
     </div>
   );
